@@ -34,8 +34,8 @@ def startSession(request):
 			userObj = form.cleaned_data
 			year = datetime.datetime.now().year
 			post = userObj['post']
-			print(year)
-			print(post)
+			# print(year)
+			# print(post)
 			profile = Election(faculty = request.user)
 			profile.year = year
 			profile.post = post
@@ -51,6 +51,12 @@ def startSession(request):
 @login_required(login_url='login/')
 @user_passes_test(check_student)
 def fillNomination(request):
+	applied = Candidate.objects.filter(user_id = request.user.id)
+	for application in applied:
+		sess = Election.objects.filter(session_id = application.session.session_id)
+		sess = sess.first()
+		if sess.status == 1:
+			return render(request,'fillNomination.html',{})
 	sessions = Election.objects.filter(status = 1)
 	return render(request,'fillNomination.html',{'sessions':sessions})
 
@@ -58,8 +64,11 @@ def fillNomination(request):
 @login_required(login_url='login/')
 @user_passes_test(check_student)
 def apply(request,sessionid):
+	sessionid = int(sessionid)
+	sess = Election.objects.filter(session_id=sessionid)
+	sess = sess.first()
 	candidate = Candidate(user_id = request.user.id)
-	candidate.session = sessionid
+	candidate.session = sess
 	candidate.save()
 	return redirect('/election/applied')
 
@@ -67,4 +76,10 @@ def apply(request,sessionid):
 @login_required(login_url='login/')
 @user_passes_test(check_student)
 def applied(request):
-	return 0
+	applications = []
+	sessions = Candidate.objects.filter(user_id = request.user.id)
+	for sess in sessions:
+		obj = Election.objects.filter(session_id = sess.session.session_id)
+		obj = obj.first()
+		applications.append(obj)
+	return render(request,'applied.html',{'applications':applications})

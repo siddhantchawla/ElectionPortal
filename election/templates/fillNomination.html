@@ -1,3 +1,5 @@
+{% if sessions %}
+
 {% for session in sessions %}
 
 {{session.session_id}}
@@ -5,4 +7,10 @@
 <a class="ui red icon button" href="/election/apply/{{session.session_id}}/" name="id" value='{{session.session_id}}'>Apply</a>
 
 {% endfor %}
+
+{% else %}
+	
+	You have already applied for a post.
+
+{% endif %}
 

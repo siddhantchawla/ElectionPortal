@@ -133,30 +133,6 @@ class Election(models.Model):
         managed = True
         db_table = 'election'
 
-# class ElectionSession(models.Model):
-#     faculty = models.ForeignKey(User, models.SET_NULL,null=True)
-#     session_id = models.AutoField(primary_key=True)
-#     post = models.CharField(max_length=20)
-#     year = models.IntegerField()
-#     status = models.IntegerField()
-
-#     class Meta:
-#         managed = True
-#         db_table = 'election'    
-
-
-# class Faculty(models.Model):
-#     faculty = models.OneToOneField(User,models.CASCADE)
-#     first_name = models.CharField(max_length=40)
-#     last_name = models.CharField(max_length=40)
-#     phone = models.IntegerField()
-#     email = models.CharField(max_length=60)
-
-    # class Meta:
-    #     managed = False
-    #     db_table = 'faculty'
-
-
 class Result(models.Model):
     user = models.ForeignKey(User, models.SET_NULL,null=True)
     session_id = models.IntegerField(primary_key=True)
@@ -164,29 +140,6 @@ class Result(models.Model):
     class Meta:
         managed = True
         db_table = 'result'
-
-
-# class Student(models.Model):
-#     student = models.OneToOneField(User,models.CASCADE)
-#     first_name = models.CharField(max_length=40)
-#     last_name = models.CharField(max_length=40)
-#     phone = models.IntegerField()
-#     email = models.CharField(max_length=60)
-
-#     class Meta:
-#         managed = False
-#         db_table = 'student'
-
-
-# class User(models.Model):
-#     user_id = models.AutoField(primary_key=True)
-#     username = models.CharField(max_length=20)
-#     password = models.CharField(max_length=100)
-#     isAdmin = models.IntegerField(db_column='isAdmin')  # Field name made lowercase.
-
-#     class Meta:
-#         managed = False
-#         db_table = 'user'
 
 
 class Vote(models.Model):
