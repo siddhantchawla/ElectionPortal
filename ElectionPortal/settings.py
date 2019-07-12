@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'ElectionPortal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ElectionPortal',
+        'NAME': 'ep',
         'USER': 'root',
-        'PASSWORD' : 'Natsu01',
+        'PASSWORD' : 'qwerty123',
         'HOST' : 'localhost',
         'PORT' : '3306',
         'CHARSET': 'utf8mb4',

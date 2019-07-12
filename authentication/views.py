@@ -9,7 +9,7 @@ from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate, login
 
 from .forms import UserRegistrationForm, UserLoginForm
-
+from election.models import *
 
 
 def register_page(request):
@@ -29,8 +29,13 @@ def register_page(request):
 				user.set_password(password)
 				user.first_name = firstname
 				user.last_name = lastname
+				# user.is_superuser = 1
 				user.save()
 				login(request,user)
+				# fac = Faculty(faculty=request.user)
+				# fac.first_name = firstname
+				# fac.last_name = lastname
+				
 				return redirect('/')
 			else:
 				return render(request, 'registration.html',{'error': 'This Username/Email is not available!', 'form' : form})

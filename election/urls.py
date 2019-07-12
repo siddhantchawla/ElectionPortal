@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
 
-	path('',views.startSession),
+	path('',views.index),
+	path('startSession/',views.startSession),
 	
 ]

@@ -74,7 +74,7 @@ class Candidate(models.Model):
     session = models.ForeignKey('Election', models.CASCADE)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'candidate'
 
 
@@ -123,40 +123,51 @@ class DjangoSession(models.Model):
 
 
 class Election(models.Model):
-    faculty = models.ForeignKey(AuthUser, models.CASCADE)
+    faculty = models.ForeignKey(User, models.CASCADE)
     session_id = models.AutoField(primary_key=True)
     post = models.CharField(max_length=20)
     year = models.IntegerField()
     status = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'election'
+
+class ElectionSession(models.Model):
+    faculty = models.ForeignKey(User, models.SET_NULL,null=True)
+    session_id = models.AutoField(primary_key=True)
+    post = models.CharField(max_length=20)
+    year = models.IntegerField()
+    status = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'election'    
 
 
 # class Faculty(models.Model):
-#     faculty = models.OneToOneField(AuthUser,models.CASCADE)
+#     faculty = models.OneToOneField(User,models.CASCADE)
 #     first_name = models.CharField(max_length=40)
 #     last_name = models.CharField(max_length=40)
 #     phone = models.IntegerField()
 #     email = models.CharField(max_length=60)
 
-#     class Meta:
-#         managed = False
-#         db_table = 'faculty'
+    class Meta:
+        managed = False
+        db_table = 'faculty'
 
 
 class Result(models.Model):
-    user = models.ForeignKey(AuthUser, models.SET_NULL,null=True)
+    user = models.ForeignKey(User, models.SET_NULL,null=True)
     session_id = models.IntegerField(primary_key=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'result'
 
 
 # class Student(models.Model):
-#     student = models.OneToOneField(AuthUser,models.CASCADE)
+#     student = models.OneToOneField(User,models.CASCADE)
 #     first_name = models.CharField(max_length=40)
 #     last_name = models.CharField(max_length=40)
 #     phone = models.IntegerField()

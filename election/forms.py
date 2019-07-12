@@ -12,7 +12,7 @@ post = (
 class SessionStartForm(forms.Form):
     post = forms.CharField(
         required = True,
-        label = 'Branch',
+        label = ' Post ',
         max_length = 64,
         widget = forms.Select(
             choices = post,
@@ -22,7 +22,7 @@ class SessionStartForm(forms.Form):
             )
 
     )
-    year = forms.IntegerField(
-        required = True,
-        label = 'year',
-    )
+    # year = forms.IntegerField(
+    #     required = True,
+    #     label = 'year',
+    # )
