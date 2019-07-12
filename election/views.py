@@ -49,4 +49,22 @@ def startSession(request):
 	return render(request,'sessionStart.html', {'form':form})
 
 @login_required(login_url='login/')
-def 
+@user_passes_test(check_student)
+def fillNomination(request):
+	sessions = Election.objects.filter(status = 1)
+	return render(request,'fillNomination.html',{'sessions':sessions})
+
+
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def apply(request,sessionid):
+	candidate = Candidate(user_id = request.user.id)
+	candidate.session = sessionid
+	candidate.save()
+	return redirect('/election/applied')
+
+
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def applied(request):
+	return 0

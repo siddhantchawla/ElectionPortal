@@ -133,16 +133,16 @@ class Election(models.Model):
         managed = True
         db_table = 'election'
 
-class ElectionSession(models.Model):
-    faculty = models.ForeignKey(User, models.SET_NULL,null=True)
-    session_id = models.AutoField(primary_key=True)
-    post = models.CharField(max_length=20)
-    year = models.IntegerField()
-    status = models.IntegerField()
+# class ElectionSession(models.Model):
+#     faculty = models.ForeignKey(User, models.SET_NULL,null=True)
+#     session_id = models.AutoField(primary_key=True)
+#     post = models.CharField(max_length=20)
+#     year = models.IntegerField()
+#     status = models.IntegerField()
 
-    class Meta:
-        managed = True
-        db_table = 'election'    
+#     class Meta:
+#         managed = True
+#         db_table = 'election'    
 
 
 # class Faculty(models.Model):
@@ -152,9 +152,9 @@ class ElectionSession(models.Model):
 #     phone = models.IntegerField()
 #     email = models.CharField(max_length=60)
 
-    class Meta:
-        managed = False
-        db_table = 'faculty'
+    # class Meta:
+    #     managed = False
+    #     db_table = 'faculty'
 
 
 class Result(models.Model):
