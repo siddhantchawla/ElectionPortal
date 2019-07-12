@@ -12,19 +12,21 @@ from .models import *
 from .forms import SessionStartForm
 # Create your views here.
 
-def check_user(user):
-	# user = request.user
+def check_admin(user):
 	return user.is_superuser
 
+def check_student(user):
+	return user.is_superuser==0
+
 @login_required(login_url='login/')
-@user_passes_test(check_user)
+@user_passes_test(check_admin)
 def index(request):
 	return render(request,'home.html',{'user':request.user})
 
 
 
 @login_required(login_url='login/')
-@user_passes_test(check_user)
+@user_passes_test(check_admin)
 def startSession(request):
 	if request.method == 'POST':
 		form = SessionStartForm(request.POST)
@@ -45,3 +47,6 @@ def startSession(request):
 	else:
 		form = SessionStartForm()
 	return render(request,'sessionStart.html', {'form':form})
+
+@login_required(login_url='login/')
+def 
