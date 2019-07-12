@@ -56,7 +56,7 @@ ROOT_URLCONF = 'ElectionPortal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['.'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ElectionPortal',
         'USER': 'root',
-        'PASSWORD' : 'qwerty123',
+        'PASSWORD' : 'Natsu01',
         'HOST' : 'localhost',
         'PORT' : '3306',
         'CHARSET': 'utf8mb4',

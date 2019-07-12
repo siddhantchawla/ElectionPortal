@@ -123,7 +123,7 @@ class DjangoSession(models.Model):
 
 
 class Election(models.Model):
-    faculty = models.ForeignKey('Faculty', models.CASCADE)
+    faculty = models.ForeignKey(AuthUser, models.CASCADE)
     session_id = models.AutoField(primary_key=True)
     post = models.CharField(max_length=20)
     year = models.IntegerField()
@@ -134,16 +134,16 @@ class Election(models.Model):
         db_table = 'election'
 
 
-class Faculty(models.Model):
-    faculty = models.OneToOneField(AuthUser,models.CASCADE)
-    first_name = models.CharField(max_length=40)
-    last_name = models.CharField(max_length=40)
-    phone = models.IntegerField()
-    email = models.CharField(max_length=60)
+# class Faculty(models.Model):
+#     faculty = models.OneToOneField(AuthUser,models.CASCADE)
+#     first_name = models.CharField(max_length=40)
+#     last_name = models.CharField(max_length=40)
+#     phone = models.IntegerField()
+#     email = models.CharField(max_length=60)
 
-    class Meta:
-        managed = False
-        db_table = 'faculty'
+#     class Meta:
+#         managed = False
+#         db_table = 'faculty'
 
 
 class Result(models.Model):
