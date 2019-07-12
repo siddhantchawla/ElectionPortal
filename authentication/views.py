@@ -32,9 +32,6 @@ def register_page(request):
 				# user.is_superuser = 1
 				user.save()
 				login(request,user)
-				# fac = Faculty(faculty=request.user)
-				# fac.first_name = firstname
-				# fac.last_name = lastname
 				
 				return redirect('/')
 			else:
