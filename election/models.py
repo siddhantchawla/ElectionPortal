@@ -155,16 +155,16 @@ class Result(models.Model):
         db_table = 'result'
 
 
-class Student(models.Model):
-    student = models.OneToOneField(AuthUser,models.CASCADE)
-    first_name = models.CharField(max_length=40)
-    last_name = models.CharField(max_length=40)
-    phone = models.IntegerField()
-    email = models.CharField(max_length=60)
+# class Student(models.Model):
+#     student = models.OneToOneField(AuthUser,models.CASCADE)
+#     first_name = models.CharField(max_length=40)
+#     last_name = models.CharField(max_length=40)
+#     phone = models.IntegerField()
+#     email = models.CharField(max_length=60)
 
-    class Meta:
-        managed = False
-        db_table = 'student'
+#     class Meta:
+#         managed = False
+#         db_table = 'student'
 
 
 # class User(models.Model):
