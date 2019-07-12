@@ -74,4 +74,4 @@ def index(request):
 	data['user'] = user
 	data['isAdmin'] = user.is_superuser
 	print(user.is_superuser)
-	return render(request,'home.html',data)
+	return render(request,'index.html',data)

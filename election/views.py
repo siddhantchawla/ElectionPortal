@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -12,10 +12,19 @@ from .models import *
 from .forms import SessionStartForm
 # Create your views here.
 
+def check_user(user):
+	# user = request.user
+	return user.is_superuser
+
+@login_required(login_url='login/')
+@user_passes_test(check_user)
 def index(request):
 	return render(request,'home.html',{'user':request.user})
 
 
+
+@login_required(login_url='login/')
+@user_passes_test(check_user)
 def startSession(request):
 	if request.method == 'POST':
 		form = SessionStartForm(request.POST)
@@ -25,14 +34,12 @@ def startSession(request):
 			post = userObj['post']
 			print(year)
 			print(post)
-			# fac = Faculty.objects.create(faculty = request.user)
-			# fac.save()
 			profile = Election(faculty = request.user)
 			profile.year = year
 			profile.post = post
 			profile.status = 1
 			profile.save()
-			return redirect('/election')
+			return redirect('/election/')
 		else:
 			raise forms.ValidationError('invalid form')
 	else:
