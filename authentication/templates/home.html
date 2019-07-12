@@ -1,1 +1,10 @@
 hello {{user}}
+
+{% if isAdmin %}
+
+                  		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  	<strong>Welcome Admin</strong>
+{% else %}
+                  		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  	<strong>Welcome Student</strong>
+{% endif %}

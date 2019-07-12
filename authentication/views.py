@@ -30,7 +30,6 @@ def register_page(request):
 				user.first_name = firstname
 				user.last_name = lastname
 				user.save()
-				# user = authenticate(username = username, password = password)
 				login(request,user)
 				return redirect('/')
 			else:
@@ -52,8 +51,8 @@ def login_page(request):
 			user = authenticate(username=username,password = password)
 			if user is not None:
 				login(request,user)
-				
-				return render(request,'home.html',{user:user})
+				print(user.is_superuser)
+				return redirect('/')
 			else:
 				raise forms.ValidationError('Looks like username/password is wrong!')
 	else:
@@ -68,4 +67,9 @@ def logout_page(request):
 
 
 def index(request):
-	return render(request,'home.html',{})
+	user = request.user
+	data = {}
+	data['user'] = user
+	data['isAdmin'] = user.is_superuser
+	print(user.is_superuser)
+	return render(request,'home.html',data)
