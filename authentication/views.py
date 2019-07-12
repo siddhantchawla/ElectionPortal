@@ -23,8 +23,6 @@ def register_page(request):
 			firstname =  userObj['first_name']
 			lastname =  userObj['last_name']
 			contact = userObj['contact']
-			# if Userprofile.objects.filter(regNum = regnum).count() > 0:
-			# 	return render(request, 'registration.html', {'error' : 'This Registration Number Has Already Been Registered', 'form' : form})
 
 			if not (User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists()):
 				user = User.objects.create_user(username = username ,email= email)
@@ -65,7 +63,6 @@ def login_page(request):
 
 @login_required(login_url='login/')
 def logout_page(request):
-    # messages.success(request, 'Logged Out Succesfully!')
     logout(request)
     return redirect('/login')
 
