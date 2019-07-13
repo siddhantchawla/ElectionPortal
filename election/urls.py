@@ -9,6 +9,9 @@ urlpatterns = [
 	path('changestatus/<int:session_id>/',views.changeStatus),
 	path('fillNomination/',views.fillNomination),
 	path('apply/<str:sessionid>/',views.apply),
-	path('applied/',views.applied)
+	path('applied/',views.applied),
+	path('activeSessions/',views.activeSessions),
+	path('vote/<int:session_id>/',views.vote),
+	path('vote/<int:session_id>/<int:userid>/',views.addVote),
 	
 ]

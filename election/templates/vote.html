@@ -1,0 +1,10 @@
+{{post}}
+
+{% for applicant in applicants %}
+
+{{applicant.first_name}} 
+{{applicant.last_name}}
+<a class="ui red icon button" href="/election/vote/{{session_id}}/{{applicant.userid}}/" name="id" value='{{sessionid}}'>Vote</a>
+
+
+{% endfor %}

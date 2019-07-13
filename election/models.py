@@ -125,7 +125,7 @@ class DjangoSession(models.Model):
 class Election(models.Model):
     faculty = models.ForeignKey(User, models.CASCADE)
     session_id = models.AutoField(primary_key=True)
-    post = models.CharField(max_length=20)
+    post = models.CharField(max_length=50)
     year = models.IntegerField()
     status = models.IntegerField()
 
@@ -142,12 +142,19 @@ class Result(models.Model):
         db_table = 'result'
 
 
-class Vote(models.Model):
+class Votecount(models.Model):
     reference_no = models.AutoField(primary_key=True)
     session = models.ForeignKey(Election, models.CASCADE)
-    hashed_value = models.CharField(max_length=100)
     candidate_id = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
-        db_table = 'vote'
+        managed = True
+        db_table = 'votecount'
+
+class Voted(models.Model):
+    voter = models.ForeignKey(User,models.SET_NULL,null=True)
+    session_id = models.IntegerField(blank = False,null= False)
+
+    class Meta:
+        managed = True
+        db_table = 'voted'

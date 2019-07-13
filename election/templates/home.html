@@ -8,9 +8,7 @@
 		<a href="startSession/">create session</a>
 	</div>
 	<div>
-		session started by {{user}}
-	</div>
-	<div>
+			{% if sessions %}
 			<table>		
 				<thead>
 					<th>session id</th>
@@ -32,6 +30,7 @@
 				{% endfor %}
 
 			</table>
+			{% endif %}
 	</div>
 </body>
 </html>

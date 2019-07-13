@@ -18,6 +18,7 @@ def check_admin(user):
 def check_student(user):
 	return user.is_superuser==0
 
+
 @login_required(login_url='login/')
 @user_passes_test(check_admin)
 def index(request):
@@ -86,7 +87,7 @@ def fillNomination(request):
 	for application in applied:
 		sess = Election.objects.filter(session_id = application.session.session_id)
 		sess = sess.first()
-		if sess.status == 1:
+		if sess.status != 3:
 			return render(request,'fillNomination.html',{})
 	sessions = Election.objects.filter(status = 1)
 	return render(request,'fillNomination.html',{'sessions':sessions})
@@ -116,3 +117,42 @@ def applied(request):
 	return render(request,'applied.html',{'applications':applications})
 
 
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def activeSessions(request):
+	sessions = Election.objects.filter(status = 2)
+	available = []
+	for sess in sessions:
+		voted = Voted.objects.filter(session_id = sess.session_id,voter = request.user)
+		if not voted:
+			available.append(sess)
+	return render(request,'activeSessions.html',{'sessions':available})
+
+
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def vote(request,session_id):
+	sessionid = int(session_id)
+	session = Election.objects.filter(session_id = sessionid)
+	session = session.first()
+	candidates = Candidate.objects.filter(session = session)
+	data = {}
+	data['session_id'] = sessionid
+	data['post'] = session.post
+	data['applicants'] = []
+	for candidate in candidates:
+		userid = candidate.user_id
+		user = User.objects.filter(id = userid)
+		user = user.first()
+		r = {}
+		r['first_name'] = user.first_name
+		r['last_name'] = user.last_name
+		r['userid'] = userid
+		data['applicants'].append(r)
+
+	return render(request,'vote.html',data)
+
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def addVote(request,session_id,userid):
+	return redirect('/election/activeSessions')
