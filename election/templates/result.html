@@ -1,0 +1,24 @@
+
+
+<table>		
+				<thead>
+					<th>Name</th>
+					<th></th>
+					<th>Vote Count</th> 
+					
+
+				</thead>
+				{% for r in result %}
+				<tbody id = "countit">
+					<tr ng-repeat="course in  regularCourses=(slip.lists | filter :{backlog:CONSTANTS.REGULAR})" >
+						<td>{{r.first_name}}</td>
+						<td>{{r.last_name}}</td>
+						<td>{{r.votes}}</td>
+							{% if r.user_id == winner %}	
+						<td>	Winner!!!!</td>
+							{% endif %}
+					</tr>
+				</tbody>
+				{% endfor %}
+
+			</table>

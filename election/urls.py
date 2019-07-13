@@ -13,5 +13,5 @@ urlpatterns = [
 	path('activeSessions/',views.activeSessions),
 	path('vote/<int:session_id>/',views.vote),
 	path('vote/<int:session_id>/<int:userid>/',views.addVote),
-	
+	path('result/<int:session_id>/',views.result),
 ]

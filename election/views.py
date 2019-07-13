@@ -75,8 +75,8 @@ def changeStatus(request, session_id):
 	elif(object_detail.status == 2):
 		object_detail.status = 3
 		object_detail.save()
-	else:
-		return HttpResponseForbidden()
+	# else:
+	# 	return redirect('/election/')
 	return redirect('/election/')
 
 
@@ -155,4 +155,44 @@ def vote(request,session_id):
 @login_required(login_url='login/')
 @user_passes_test(check_student)
 def addVote(request,session_id,userid):
+	voter = Voted(voter = request.user,session_id = session_id)
+	voter.save()
+	elec = Election.objects.filter(session_id = session_id)
+	elec = elec.first()
+	vote = Votecount(session = elec,candidate_id = userid)
+	reference_no = vote.reference_no
+	vote.save()
 	return redirect('/election/activeSessions')
+
+
+@login_required(login_url='login/')
+@user_passes_test(check_admin)
+def result(request,session_id):
+	sessionid = session_id
+	elec = Election.objects.filter(session_id = sessionid)
+	elec = elec.first()
+	candidates = Candidate.objects.filter(session = elec)
+	maxx = 0
+	data = {}
+	data['result'] = []
+	data['winner'] = 0
+	for candidate in candidates:
+		votes = Votecount.objects.filter(session = elec,candidate_id = candidate.user_id)
+		r = {}
+		c = len(votes)
+		user = User.objects.filter(id = candidate.user_id)
+		user = user.first()
+		r['votes'] = c
+		r['first_name'] = user.first_name
+		r['last_name'] = user.last_name
+		r['user_id'] = candidate.user_id
+		if c > maxx:
+			maxx = c
+			data['winner'] = candidate.user_id
+		data['result'].append(r)
+	winner = User.objects.filter(id =data['winner'])
+	winner = winner.first()
+	result = Result(user = winner,session_id = sessionid)
+	return render(request,'result.html',data)
+
+

@@ -15,7 +15,7 @@
 					<th>post</th>
 					<th>year</th> 
 					<th>status</th>
-					<th>Edit Status</th>
+
 				</thead>
 				{% for sess in sessions %}
 				<tbody id = "countit">
@@ -24,7 +24,11 @@
 						<td>{{sess.post}}</td>
 						<td>{{sess.year}}</td>
 						<td>{{sess.status}}</td>
-						<th><a href="changestatus/{{sess.session_id}}"><button type="button">Change</button></a></th>
+						{% if sess.status == 3 %}
+						<td><a href="result/{{sess.session_id}}"><button type="button">Show Result</button></a></td>
+						{% else %}
+						<td><a href="changestatus/{{sess.session_id}}"><button type="button">Change Status</button></a></td>
+						{% endif %}
 					</tr>
 				</tbody>
 				{% endfor %}
