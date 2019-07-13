@@ -2,11 +2,11 @@ from django import forms
 
 post = (
         ('-','---SELECT---'),
-        ('PR','President'),
-        ('VP','Vice President'),
-        ('SS','Sports secretary'),
-        ('ES','Enviornment secretary'),
-        ('CS','Cultural secretary'),
+        ('President','President'),
+        ('Vice President','Vice President'),
+        ('Sports secretary','Sports secretary'),
+        ('Environment secretary','Environment secretary'),
+        ('Cultural secretary','Cultural secretary'),
     )
 
 class SessionStartForm(forms.Form):

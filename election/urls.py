@@ -7,6 +7,8 @@ urlpatterns = [
 	path('',views.index),
 	path('startSession/',views.startSession),
 	path('changestatus/<int:session_id>/',views.changeStatus),
-	# path('fillNomination/',views.fillNomination),
+	path('fillNomination/',views.fillNomination),
+	path('apply/<str:sessionid>/',views.apply),
+	path('applied/',views.applied)
 	
 ]

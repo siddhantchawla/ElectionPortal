@@ -46,8 +46,8 @@ def startSession(request):
 			userObj = form.cleaned_data
 			year = datetime.datetime.now().year
 			post = userObj['post']
-			print(year)
-			print(post)
+			# print(year)
+			# print(post)
 			profile = Election(faculty = request.user)
 			profile.year = year
 			profile.post = post
@@ -75,3 +75,39 @@ def changeStatus(request, session_id):
 	else:
 		return HttpResponseForbidden()
 	return redirect('/election/')
+
+
+@user_passes_test(check_student)
+def fillNomination(request):
+	applied = Candidate.objects.filter(user_id = request.user.id)
+	for application in applied:
+		sess = Election.objects.filter(session_id = application.session.session_id)
+		sess = sess.first()
+		if sess.status == 1:
+			return render(request,'fillNomination.html',{})
+	sessions = Election.objects.filter(status = 1)
+	return render(request,'fillNomination.html',{'sessions':sessions})
+
+
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def apply(request,sessionid):
+	sessionid = int(sessionid)
+	sess = Election.objects.filter(session_id=sessionid)
+	sess = sess.first()
+	candidate = Candidate(user_id = request.user.id)
+	candidate.session = sess
+	candidate.save()
+	return redirect('/election/applied')
+
+
+@login_required(login_url='login/')
+@user_passes_test(check_student)
+def applied(request):
+	applications = []
+	sessions = Candidate.objects.filter(user_id = request.user.id)
+	for sess in sessions:
+		obj = Election.objects.filter(session_id = sess.session.session_id)
+		obj = obj.first()
+		applications.append(obj)
+	return render(request,'applied.html',{'applications':applications})
