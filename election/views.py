@@ -21,7 +21,19 @@ def check_student(user):
 @login_required(login_url='login/')
 @user_passes_test(check_admin)
 def index(request):
-	return render(request,'home.html',{'user':request.user})
+	fac = request.user
+	session_detail = Election.objects.filter(faculty = fac)
+	data = {'faculty' : fac}
+	data['sessions'] = []
+	for sess in session_detail:
+		r = {}
+		# r['faculty']
+		r['post'] = sess.post
+		r['year'] = sess.year
+		r['session_id'] = sess.session_id
+		r['status'] = sess.status
+		data['sessions'].append(r)
+	return render(request,'home.html',data)
 
 
 
@@ -49,4 +61,17 @@ def startSession(request):
 	return render(request,'sessionStart.html', {'form':form})
 
 @login_required(login_url='login/')
-def 
+def changeStatus(request, session_id):
+	session_id = int(session_id)
+	obj = Election.objects.filter(session_id = session_id)
+	object_detail = obj.first()
+	print(object_detail.status)
+	if(object_detail.status == 1):
+		object_detail.status = 2
+		object_detail.save()
+	elif(object_detail.status == 2):
+		object_detail.status = 3
+		object_detail.save()
+	else:
+		return HttpResponseForbidden()
+	return redirect('/election/')

@@ -1,1 +1,39 @@
-session started by {{user}}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div>
+		<a href="startSession/">create session</a>
+	</div>
+	<div>
+		session started by {{user}}
+	</div>
+	<div>
+			<table>		
+				<thead>
+					<th>session id</th>
+					<th>post</th>
+					<th>year</th> 
+					<th>status</th>
+					<th>Edit Status</th>
+				</thead>
+				{% for sess in sessions %}
+				<tbody id = "countit">
+					<tr ng-repeat="course in  regularCourses=(slip.lists | filter :{backlog:CONSTANTS.REGULAR})" >
+						<td>{{sess.session_id}}</td>
+						<td>{{sess.post}}</td>
+						<td>{{sess.year}}</td>
+						<td>{{sess.status}}</td>
+						<th><a href="changestatus/{{sess.session_id}}"><button type="button">Change</button></a></th>
+					</tr>
+				</tbody>
+				{% endfor %}
+
+			</table>
+	</div>
+</body>
+</html>
+
+
