@@ -60,7 +60,9 @@ def startSession(request):
 		form = SessionStartForm()
 	return render(request,'sessionStart.html', {'form':form})
 
+
 @login_required(login_url='login/')
+@user_passes_test(check_admin)
 def changeStatus(request, session_id):
 	session_id = int(session_id)
 	obj = Election.objects.filter(session_id = session_id)
@@ -77,6 +79,7 @@ def changeStatus(request, session_id):
 	return redirect('/election/')
 
 
+@login_required(login_url='login/')
 @user_passes_test(check_student)
 def fillNomination(request):
 	applied = Candidate.objects.filter(user_id = request.user.id)
@@ -111,3 +114,5 @@ def applied(request):
 		obj = obj.first()
 		applications.append(obj)
 	return render(request,'applied.html',{'applications':applications})
+
+
