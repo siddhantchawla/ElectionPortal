@@ -169,6 +169,7 @@ def addVote(request,session_id,userid):
 @user_passes_test(check_admin)
 def result(request,session_id):
 	sessionid = session_id
+
 	elec = Election.objects.filter(session_id = sessionid)
 	elec = elec.first()
 	candidates = Candidate.objects.filter(session = elec)
@@ -193,6 +194,7 @@ def result(request,session_id):
 	winner = User.objects.filter(id =data['winner'])
 	winner = winner.first()
 	result = Result(user = winner,session_id = sessionid)
+	result.save()
 	return render(request,'result.html',data)
 
 
