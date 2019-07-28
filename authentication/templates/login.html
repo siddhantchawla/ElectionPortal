@@ -1,12 +1,27 @@
-<form method='POST'> {% csrf_token %}
+{% extends 'base.html' %}
 
-            		{% if error %}
-                	<div class="alert alert-danger alert-dismissable">
-                  		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  	<strong>{{error}}</strong>
-                	</div>
-            		{% endif %}
-            		
-		            {{ form }}  
-		            <button type='submit' class='btn btn-secondary'>Login</button>
-		          </form>
+{% block head %}
+  <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/register/">Sign Up</a>
+              </li>
+            </ul>
+      </div>
+{% endblock %}
+
+{% block body %}
+    <form method='POST'> {% csrf_token %}
+
+  		{% if error %}
+        <div class="alert alert-danger alert-dismissable">
+      		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          	<strong>{{error}}</strong>
+      	</div>
+   		{% endif %}     		
+		  <table>
+        {{ form }}
+      </table>
+          <button type='submit' class='btn btn-secondary'>Login</button>
+    </form>
+{% endblock %}

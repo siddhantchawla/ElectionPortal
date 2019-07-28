@@ -1,3 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/login/">Sign In</a>
+              </li>
+            </ul>
+      </div>
+{% endblock %}
+
+{% block body %}
 <form method='POST'> {% csrf_token %}
 
             		{% if error %}
@@ -6,7 +19,10 @@
                   	<strong>{{error}}</strong>
                 	</div>
             		{% endif %}
-            		
-		            {{ form }}  
+            		<table>
+            			{{ form }}
+            		</table>
+		            <!-- {{ form }}   -->
 		            <button type='submit' class='btn btn-secondary'>Register</button>
 </form>
+{% endblock %}

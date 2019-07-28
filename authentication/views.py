@@ -54,7 +54,7 @@ def login_page(request):
 			if user is not None:
 				login(request,user)
 				print(user.is_superuser)
-				return redirect('/')
+				return redirect('/home')
 			else:
 				raise forms.ValidationError('Looks like username/password is wrong!')
 	else:
@@ -75,3 +75,9 @@ def index(request):
 	data['isAdmin'] = user.is_superuser
 	print(user.is_superuser)
 	return render(request,'index.html',data)
+
+def home(request):
+	user = request.user
+	data = {}
+	data['user'] = user
+	return render(request,'home2.html',data)

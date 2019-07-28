@@ -1,10 +1,50 @@
-hello {{user}}
+{% extends 'base.html' %}
 
-{% if isAdmin %}
+{% block head %}
+	{% if isAdmin %}
+		<div class="collapse navbar-collapse" id="navbarNav">
+	          <ul class="navbar-nav">
+	            <li class="nav-item active">
+	              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/election/">Election Page</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/logout/">Logout</a>
+	            </li>
+	          </ul>
+	    </div>
+	{% else %}
+		<div class="collapse navbar-collapse" id="navbarNav">
+	          <ul class="navbar-nav">
+	            <li class="nav-item active">
+	              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/election/fillNomination/">Election</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/logout/">Logout</a>
+	            </li>
+	          </ul>
+	    </div>
+	{% endif %}
+{% endblock %}
 
-                  		<a href="/election/" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  	<strong>Welcome Admin</strong>
-{% else %}
-                  		<a href="/election/" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  	<strong>Welcome Student</strong>
-{% endif %}
+{% block body%}
+
+	{% if isAdmin %}
+	    <!-- <a href="/election/" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+	      	<strong><h2><b>Welcome Admin</b></h2></strong>
+	{% else %}
+	    <!-- <a href="/election/" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+	        <strong><h2><b>Welcome Student</b></h2></strong>
+	{% endif %}
+
+	<div>
+		<strong><h2><b>hello {{user}}<strong><h2><b>
+	</div>
+
+
+{% endblock %}

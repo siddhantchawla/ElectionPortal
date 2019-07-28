@@ -1,16 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+	<div class="collapse navbar-collapse" id="navbarNav">
+	          <ul class="navbar-nav">
+	            <li class="nav-item">
+	              <a class="nav-link" href="/home/">Home</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/election/activeSessions/">Vote</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/election/applied/">Applied</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/logout/">Logout</a>
+	            </li>
+	          </ul>
+	    </div>
+{% endblock %}
+
+{% block body%}
+	
 {% if sessions %}
+			<table class="table col-md-6 col-md-offset-3 table-bordered">		
+				<thead class="thead-dark">
+					<th scope="col">session id</th>
+					<th scope="col">post</th>
+					<th scope="col">Apply</th> 
+				</thead>
+				{% for sess in sessions %}
+				<tbody>
+					<tr scope="row">
+						<td>{{sess.session_id}}</td>
+						<td>{{sess.post}}</td>
+						<td><a href="/election/apply/{{sess.session_id}}" name="id" value='{{sess.session_id}}'><button type="button" class="btn btn-dark">Apply</button></a></td>
+					</tr>
+				</tbody>
+				{% endfor %}
 
-{% for session in sessions %}
-
-{{session.session_id}}
-{{session.post}}
-<a class="ui red icon button" href="/election/apply/{{session.session_id}}/" name="id" value='{{session.session_id}}'>Apply</a>
-
-{% endfor %}
+			</table>
 
 {% else %}
 	
-	You have already applied for a post.
+	<h3>You have already applied for a post.</h3>
 
 {% endif %}
 
+{% endblock %}

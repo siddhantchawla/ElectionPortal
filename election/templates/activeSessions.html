@@ -1,6 +1,44 @@
-{% for session in sessions %}
+{% extends 'base.html' %}
 
-{{session.post}}
-<a class="ui red icon button" href="/election/vote/{{session.session_id}}/" name="id" value='{{session.session_id}}'>Vote</a>
+{% block head %}
+	<div class="collapse navbar-collapse" id="navbarNav">
+	          <ul class="navbar-nav">
+	            <li class="nav-item">
+	              <a class="nav-link" href="/home/">Home</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/election/activeSessions/">Vote</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/election/applied/">Applied</a>
+	            </li>
+	            <li class="nav-item">
+	              <a class="nav-link" href="/logout/">Logout</a>
+	            </li>
+	          </ul>
+	    </div>
+{% endblock %}
 
-{% endfor %}
+{% block body%}
+
+
+			<table class="table col-md-6 col-md-offset-3 table-bordered">		
+				<thead class="thead-dark">
+					<th scope="col">Post</th>
+					<th scope="col">Vote</th>
+				</thead>
+				{% for session in sessions %}
+				<tbody>
+					<tr scope="row">
+						<td>{{session.post}}</td>
+						<td><a class="ui red icon button" href="/election/vote/{{session.session_id}}/" name="id" value='{{session.session_id}}'>Vote</a></td>
+					</tr>
+				</tbody>
+				{% endfor %}
+
+			</table>
+
+
+
+
+{% endblock %}
